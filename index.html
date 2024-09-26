@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questions and Story</title>
+    <style>
+        body {
+            background-color: violet; /* Violet background */
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .question, .story, .password {
+            display: none;
+        }
+        .visible {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hi bby!</h1>
+    <div id="passwordPrompt" class="password visible">
+        <p>Write the password to start:</p>
+        <input type="text" id="passwordInput">
+        <button onclick="checkPassword()">Submit</button>
+    </div>
+
+    <div id="questions">
+        <div class="question" id="question1">
+            <p>Question 1: What is your name?</p>
+            <input type="text" id="answer1">
+            <button onclick="showNextQuestion(1)">Next</button>
+        </div>
+        <div class="question" id="question2">
+            <p>Question 2: Do you know what today is?</p>
+            <button onclick="showNextQuestion(2, 'yes')">Yes</button>
+            <button onclick="showNextQuestion(2, 'no')">No</button>
+        </div>
+        <div class="question" id="question3">
+            <p>What is it?</p>
+            <input type="text" id="answer2">
+            <button onclick="showNextQuestion(3)">Next</button>
+        </div>
+        <div class="question" id="question4">
+            <p>Would you like to know what happened a year ago?</p>
+            <button onclick="showNextQuestion(4, 'yes')">Yes</button>
+            <button onclick="showNextQuestion(4, 'no')">No</button>
+        </div>
+        <div class="question" id="question5">
+            <p>Do you love your bby?</p>
+            <button onclick="showNextQuestion(5, 'yes')">Yes</button>
+            <button onclick="showNextQuestion(5, 'no')">No</button>
+        </div>
+    </div>
+
+    <div id="story" class="story">
+        <h2>Here’s your story:</h2>
+        <a href="/mnt/data/Document%203.docx" target="_blank">Our Love Story</a>
+    </div>
+
+    <script>
+        function checkPassword() {
+            const password = document.getElementById('passwordInput').value;
+            if (password === "lovely270923") {
+                document.getElementById('passwordPrompt').style.display = 'none';
+                document.getElementById('question1').classList.add('visible');
+            } else {
+                alert('Incorrect password. Please try again.');
+            }
+        }
+
+        function showNextQuestion(currentQuestion, answer = null) {
+            if (currentQuestion === 2 && answer === 'no') {
+                alert("Ask your bby then.");
+                document.getElementById(`question${currentQuestion}`).classList.remove('visible');
+                document.getElementById(`question${currentQuestion}`).classList.add('visible');
+                return;
+            }
+            if (currentQuestion === 4 && answer === 'no') {
+                alert("Would you like to know what happened a year ago?");
+                document.getElementById(`question${currentQuestion}`).classList.remove('visible');
+                document.getElementById(`question${currentQuestion}`).classList.add('visible');
+                return;
+            }
+            if (currentQuestion === 5 && answer === 'no') {
+                alert("Do you love your bby?");
+                document.getElementById(`question${currentQuestion}`).classList.remove('visible');
+                document.getElementById(`question${currentQuestion}`).classList.add('visible');
+                return;
+            }
+
+            // Hide the current question and show the next
+            document.getElementById(`question${currentQuestion}`).classList.remove('visible');
+
+            if (currentQuestion === 5 && answer === 'yes') {
+                // Show the story when "Yes" is clicked for "Do you love your bby?"
+                document.getElementById('questions').style.display = 'none';
+                document.getElementById('story').classList.add('visible');
+            } else {
+                // Show the next question
+                document.getElementById(`question${currentQuestion + 1}`).classList.add('visible');
+            }
+        }
+
+        window.onload = function() {
+            document.getElementById('passwordPrompt').classList.add('visible');
+        }
+    </script>
+</body>
+</html>
